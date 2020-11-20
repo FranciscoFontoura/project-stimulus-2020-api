@@ -1,0 +1,17 @@
+{
+  "name": "project-stimulus-2020-api",
+  "version": "1.0.0",
+  "description": "api for the project stimulus 2020",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "stimulus ads team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "md5": "^2.3.0",
+    "sqlite3": "^5.0.0"
+  }
+}
