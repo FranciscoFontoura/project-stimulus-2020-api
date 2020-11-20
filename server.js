@@ -79,6 +79,41 @@ app.post("/api/user/", (req, res, next) => {
     });
 })
 
+app.get("/api/validateuser", (req, res, next) => {
+    var errors=[]
+    if (!req.body.email){
+        errors.push("No email specified");
+    }
+    if (!req.body.password){
+        errors.push("No password specified");
+    }
+    if (errors.length){
+        res.status(400).json({"error":errors.join(",")});
+        return;
+    }
+    var data = {
+        email: req.body.email,
+        password : md5(req.body.password)
+    }
+    var sql = "select password from user where email = ?"
+    var params = [data.email]
+    db.get(sql, params, (err, row) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        if (data.password === row.password) {
+            res.json({
+                "message": "success"
+            })
+        } else {
+            res.json({
+                "message": "password dont match",
+            })
+        }
+      });
+});
+
 app.use(function(req,res) {
     res.status(404);
 });
